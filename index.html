@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أبو هيبة لتنسيق الحدائق | 0565900420</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --main-green: #2e7d32;
+            --light-green: #4caf50;
+            --gold-color: #d4af37;
+            --bg-glass: rgba(255, 255, 255, 0.1);
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; }
+
+        /* 1. صفحة التحميل (Splash Screen) */
+        #loader {
+            position: fixed; width: 100%; height: 100vh; background: var(--main-green);
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            z-index: 9999; transition: opacity 0.5s ease;
+        }
+        .tree-icon { font-size: 80px; color: white; animation: pulse 2s infinite; }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); text-shadow: 0 0 20px #fff; } 100% { transform: scale(1); } }
+        .loader-text { color: white; margin-top: 20px; font-size: 24px; font-weight: bold; }
+        .loading-bar { width: 150px; height: 4px; background: rgba(255,255,255,0.2); margin-top: 10px; border-radius: 5px; overflow: hidden; }
+        .loading-bar::after { content: ''; display: block; width: 50px; height: 100%; background: #fff; animation: loading 1.5s infinite; }
+        @keyframes loading { from { margin-left: -50px; } to { margin-left: 150px; } }
+        
+        /* تصميم المهندس إسلام الشيخ */
+        .designer-tag {
+            position: absolute; bottom: 30px; background: rgba(0,0,0,0.3); padding: 10px 20px;
+            border: 2px solid var(--gold-color); border-radius: 8px; color: white; text-decoration: none;
+        }
+
+        /* 2. الرأس (Header) */
+        header {
+            position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex;
+            justify-content: space-between; align-items: center; z-index: 1000;
+            background: rgba(46, 125, 50, 0.9); transition: 0.3s;
+        }
+        .scrolled { background: rgba(46, 125, 50, 0.6); backdrop-filter: blur(10px); }
+        .logo-area { display: flex; align-items: center; color: white; gap: 10px; }
+        .logo-area i { font-size: 30px; animation: leafMove 3s infinite; }
+        @keyframes leafMove { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(15deg); } }
+
+        /* 3. واجهة الموقع (Hero Section) */
+        .hero {
+            height: 100vh; background: linear-gradient(rgba(46, 125, 50, 0.7), rgba(46, 125, 50, 0.7)), 
+            url('https://images.unsplash.com/photo-1585320806297-9794b3e4eeae?auto=format&fit=crop&q=80');
+            background-size: cover; display: flex; flex-direction: column; align-items: center;
+            justify-content: center; color: white; text-align: center; padding: 20px;
+        }
+
+        /* 4. كروت الخدمات (Service Cards) */
+        .services { padding: 50px 5%; background: #f9f9f9; }
+        .card {
+            background: white; border: 1px solid rgba(46, 125, 50, 0.2); border-radius: 15px;
+            padding: 25px; margin-bottom: 20px; transition: 0.3s; text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+        }
+        .card:active { transform: scale(0.95); background: #e8f5e9; }
+        .card i { font-size: 40px; color: var(--main-green); margin-bottom: 15px; }
+
+        /* 5. بار التنقل السفلي (Bottom Nav) */
+        .bottom-nav {
+            position: fixed; bottom: 15px; left: 5%; width: 90%; background: white;
+            display: flex; justify-content: space-around; padding: 10px;
+            border-radius: 50px; border: 1px solid var(--main-green); z-index: 1000;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+        }
+        .nav-item { color: var(--main-green); font-size: 20px; transition: 0.3s; padding: 10px; border-radius: 50%; }
+        .nav-item:hover { background: var(--main-green); color: white; transform: translateY(-5px); }
+    </style>
+</head>
+<body>
+
+    <div id="loader">
+        <div class="tree-icon"><i class="fas fa-seedling"></i></div>
+        <div class="loader-text">أبو هيبة لتنسيق الحدائق</div>
+        <div style="color: #fff; font-size: 14px;">جاري تحميل الموقع...</div>
+        <div class="loading-bar"></div>
+        <a href="https://wa.me/966547194788" class="designer-tag">
+            <i class="fas fa-crown"></i> تم التصميم بواسطة المهندس | إسلام الشيخ <i class="fas fa-crown"></i>
+        </a>
+    </div>
+
+    <header id="header">
+        <div class="logo-area">
+            <i class="fas fa-tree"></i>
+            <span>أبو هيبة لتنسيق الحدائق</span>
+        </div>
+        <i class="fas fa-bars" style="color: white; font-size: 24px;"></i>
+    </header>
+
+    <section class="hero">
+        <h1>أبو هيبة لتنسيق الحدائق</h1>
+        <p>نحول مساحاتكم الخارجية إلى جنة خضراء تفيض بالجمال والهدوء بأحدث التصاميم العصرية.</p>
+    </section>
+
+    <section class="services">
+        <h2 style="text-align: center; margin-bottom: 30px; color: var(--main-green);">خدماتنا</h2>
+        
+        <div class="card">
+            <i class="fas fa-leaf"></i>
+            <h3>تركيب عشب صناعي وطبيعي</h3>
+            <p>نقدم أجود أنواع العشب الصناعي المقاوم للشمس والحرارة، وزراعة الثيل الطبيعي بأفضل الطرق العلمية لضمان نمو مستدام وخضرة دائمة تبهج الناظرين وتناسب جميع الأجواء في المملكة العربية السعودية مع ضمان الجودة.</p>
+        </div>
+
+        <div class="card">
+            <i class="fas fa-water"></i>
+            <h3>تصميم شلالات ونوافير</h3>
+            <p>نصمم شلالات منزلية ونوافير فخمة بتصاميم هندسية دقيقة تحاكي الطبيعة، مع استخدام إضاءات LED مخفية وأنظمة تدوير مياه موفرة، لإضافة لمسة سحرية وصوت هادئ يعزز الاسترخاء في حديقتك الخاصة طوال العام.</p>
+        </div>
+
+        </section>
+
+    <section style="padding: 40px 5%; background: var(--main-green); color: white; text-align: center;">
+        <h3>تواصل معنا</h3>
+        <p><i class="fab fa-whatsapp"></i> 0565900420</p>
+        <p><i class="fas fa-envelope"></i> admin@abuhibagardendesign.com</p>
+        <p><i class="fas fa-map-marker-alt"></i> حي المصيف، الرياض، السعودية</p>
+    </section>
+
+    <footer style="padding: 50px 5% 100px; text-align: center; background: #eee;">
+        <a href="https://wa.me/966547194788" class="designer-tag" style="position: static; display: inline-block; background: #2e7d32; margin-bottom: 20px;">
+            <i class="fas fa-crown"></i> تم التصميم بواسطة المهندس | إسلام الشيخ <i class="fas fa-crown"></i>
+        </a>
+        <p><i class="far fa-copyright"></i> جميع الحقوق محفوظة لدى | أبو هيبة لتنسيق الحدائق 2027</p>
+    </footer>
+
+    <div class="bottom-nav">
+        <a href="#" class="nav-item"><i class="fas fa-home"></i></a>
+        <a href="https://wa.me/966565900420" class="nav-item"><i class="fab fa-whatsapp"></i></a>
+        <a href="tel:0565900420" class="nav-item"><i class="fas fa-phone"></i></a>
+        <a href="#" class="nav-item"><i class="fas fa-images"></i></a>
+    </div>
+
+    <script>
+        // سكريبت إخفاء صفحة التحميل بعد 3 ثواني
+        setTimeout(() => {
+            document.getElementById('loader').style.opacity = '0';
+            setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 500);
+        }, 3000);
+
+        // سكريبت تغيير شفافية الرأس عند النزول
+        window.onscroll = function() {
+            if (window.scrollY > 50) { document.getElementById('header').classList.add('scrolled'); }
+            else { document.getElementById('header').classList.remove('scrolled'); }
+        };
+    </script>
+</body>
+</html>
+
