@@ -81,12 +81,12 @@
         }
         .overlay.active { opacity: 1; visibility: visible; }
 
-        /* 3. Hero Section (إضافة لون أخضر كخلفية احتياطية مع الصورة المضمونة) */
+        /* 3. Hero Section (تم تغيير الخلفية لتكون لون أخضر نباتي فخم ومتدرج بدلاً من الصورة) */
         .hero {
             height: 100vh; 
-            background-color: var(--main-green);
-            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80');
-            background-size: cover; background-position: center; display: flex; flex-direction: column; 
+            /* تدرج لوني أخضر نباتي متناسق وجميل */
+            background: linear-gradient(135deg, #1b5e20 0%, var(--main-green) 100%);
+            display: flex; flex-direction: column; 
             align-items: center; justify-content: center; color: white; text-align: center; padding: 0 8%;
         }
         .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); white-space: nowrap; }
