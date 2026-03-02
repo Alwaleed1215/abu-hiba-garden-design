@@ -81,10 +81,11 @@
         }
         .overlay.active { opacity: 1; visibility: visible; }
 
-        /* 3. Hero Section (تم تغيير الصورة لحديقة فخمة) */
+        /* 3. Hero Section (إضافة لون أخضر كخلفية احتياطية مع الصورة المضمونة) */
         .hero {
-            height: 100vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
-            url('https://images.unsplash.com/photo-1558904541-efa843a96f0f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
+            height: 100vh; 
+            background-color: var(--main-green);
+            background-image: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&w=1200&q=80');
             background-size: cover; background-position: center; display: flex; flex-direction: column; 
             align-items: center; justify-content: center; color: white; text-align: center; padding: 0 8%;
         }
@@ -125,20 +126,20 @@
         
         footer { background: #fff; padding: 30px 5% 100px; text-align: center; border-top: 1px solid #eee; }
         
-        /* واتساب عائم (تم تصغير الحجم) */
+        /* واتساب عائم (تم رفعه لأعلى وتصغيره) */
         .floating-wa {
-            position: fixed; bottom: 80px; left: 20px; width: 45px; height: 45px;
+            position: fixed; bottom: 100px; left: 20px; width: 50px; height: 50px;
             background: #25d366; color: white; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; font-size: 24px;
+            align-items: center; justify-content: center; font-size: 28px;
             box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 998;
             animation: float 3s ease-in-out infinite; text-decoration: none;
         }
         @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
 
-        /* 7. بار التنقل السفلي */
+        /* 7. بار التنقل السفلي (تم تقليل الـ padding) */
         .bottom-nav {
             position: fixed; bottom: 15px; left: 5%; width: 90%; background: white;
-            display: flex; justify-content: space-around; padding: 10px;
+            display: flex; justify-content: space-around; padding: 8px;
             border-radius: 50px; border: 1px solid rgba(46, 125, 50, 0.2); z-index: 999;
             box-shadow: 0 5px 25px rgba(0,0,0,0.1);
         }
