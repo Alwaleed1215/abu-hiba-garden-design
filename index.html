@@ -5,102 +5,154 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>أبو هيبة لتنسيق الحدائق | 0565900420</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
             --main-green: #2e7d32;
             --light-green: #4caf50;
             --gold-color: #d4af37;
-            --bg-glass: rgba(255, 255, 255, 0.1);
+            --dark-bg: #1a1a1a;
         }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Cairo', sans-serif; scroll-behavior: smooth; }
 
-        /* 1. صفحة التحميل المطورة */
+        /* 1. صفحة التحميل */
         #loader {
             position: fixed; width: 100%; height: 100vh; background: var(--main-green);
             display: flex; flex-direction: column; align-items: center; justify-content: center;
             z-index: 9999; transition: opacity 0.5s ease;
         }
+        .loader-wrapper {
+            position: relative; width: 110px; height: 110px; display: flex; 
+            align-items: center; justify-content: center; margin-bottom: 20px;
+        }
         .loader-circle {
-            width: 120px; height: 120px; border: 3px dashed rgba(255,255,255,0.5);
-            border-radius: 50%; display: flex; align-items: center; justify-content: center;
-            animation: rotate 10s linear infinite; margin-bottom: 20px;
+            position: absolute; width: 100%; height: 100%; border: 3px dashed rgba(255,255,255,0.6);
+            border-radius: 50%; animation: rotate 8s linear infinite;
         }
         @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .tree-icon { font-size: 50px; color: white; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.1); } }
-        .loader-text { color: white; font-size: 20px; font-weight: bold; }
+        .tree-icon { font-size: 45px; color: white; animation: pulse 1.5s infinite; z-index: 1; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+        
+        .loader-text { color: white; font-size: 20px; font-weight: 800; margin-bottom: 5px; }
+        .loader-subtext { color: rgba(255,255,255,0.8); font-size: 13px; margin-bottom: 25px; }
         
         .designer-tag-loader {
-            margin-top: 40px; background: rgba(0,0,0,0.3); padding: 8px 15px;
-            border: 1.5px solid var(--gold-color); border-radius: 8px; color: white; 
-            text-decoration: none; font-size: 12px; transition: 0.3s;
+            background: rgba(0,0,0,0.25); padding: 6px 12px; border: 1px solid var(--gold-color);
+            border-radius: 6px; color: white; text-decoration: none; font-size: 11px; 
+            transition: 0.3s; display: flex; align-items: center; gap: 5px; margin-bottom: 30px;
         }
 
-        /* 2. الرأس (Header) */
+        /* 2. الرأس والقائمة الجانبية */
         header {
-            position: fixed; top: 0; width: 100%; padding: 10px 5%; display: flex;
+            position: fixed; top: 0; width: 100%; padding: 12px 5%; display: flex;
             justify-content: space-between; align-items: center; z-index: 1000;
             background: rgba(46, 125, 50, 0.95); transition: 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        header.scrolled { background: rgba(46, 125, 50, 0.7); backdrop-filter: blur(8px); }
+        header.scrolled { background: rgba(46, 125, 50, 0.8); backdrop-filter: blur(10px); }
         .logo-area { display: flex; align-items: center; color: white; gap: 8px; }
-        .logo-area i { font-size: 24px; color: var(--gold-color); }
-        .logo-area span { font-size: 16px; font-weight: 700; white-space: nowrap; }
+        .logo-area i { font-size: 22px; color: var(--gold-color); animation: leafMove 3s infinite; }
+        @keyframes leafMove { 0%, 100% { transform: rotate(0); } 50% { transform: rotate(15deg); } }
+        .logo-area span { font-size: 16px; font-weight: 700; }
         
-        .nav-toggle { color: white; font-size: 22px; cursor: pointer; }
+        .nav-toggle { color: white; font-size: 24px; cursor: pointer; transition: 0.3s; }
+        .nav-toggle:active { transform: scale(0.8); }
+
+        /* القائمة الجانبية (Mobile Menu) */
+        .mobile-menu {
+            position: fixed; top: 0; right: -100%; width: 260px; height: 100vh;
+            background: rgba(46, 125, 50, 0.98); backdrop-filter: blur(10px);
+            z-index: 1002; transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 80px;
+            box-shadow: -5px 0 20px rgba(0,0,0,0.5);
+        }
+        .mobile-menu.active { right: 0; }
+        .mobile-menu a {
+            display: block; color: white; padding: 15px 25px; font-size: 18px; font-weight: 600;
+            text-decoration: none; border-bottom: 1px solid rgba(255,255,255,0.1); transition: 0.3s;
+        }
+        .mobile-menu a:hover { background: rgba(0,0,0,0.1); padding-right: 30px; }
+        .mobile-menu a i { margin-left: 10px; width: 20px; text-align: center; color: var(--gold-color); }
+        .close-menu { position: absolute; top: 15px; right: 20px; color: white; font-size: 30px; cursor: pointer; }
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6); z-index: 1001; opacity: 0; visibility: hidden; transition: 0.4s;
+        }
+        .overlay.active { opacity: 1; visibility: visible; }
 
         /* 3. Hero Section */
         .hero {
-            height: 100vh; background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), 
-            url('https://images.unsplash.com/photo-1558905619-171424b4566c?q=80&w=2070');
+            height: 100vh; background: linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), 
+            url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?ixlib=rb-4.0.3&auto=format&fit=crop&w=1000&q=80');
             background-size: cover; background-position: center; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; color: white; text-align: center; padding: 0 10%;
+            align-items: center; justify-content: center; color: white; text-align: center; padding: 0 8%;
         }
-        .hero h1 { font-size: 28px; margin-bottom: 15px; }
-        .hero p { font-size: 14px; max-width: 600px; line-height: 1.8; opacity: 0.9; }
+        .hero h1 { font-size: 26px; font-weight: 800; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.5); white-space: nowrap; }
+        .hero p { font-size: 14px; max-width: 600px; line-height: 1.9; opacity: 0.95; }
 
-        /* 4. كروت الخدمات والسيو */
+        /* 4. لماذا نحن (Why Us) */
+        .why-us { padding: 60px 5%; background: white; }
+        .section-title { text-align: center; margin-bottom: 40px; color: var(--main-green); font-size: 26px; font-weight: 800; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; }
+        .feature-box {
+            text-align: center; padding: 20px 10px; background: #f9fbf9; border-radius: 12px;
+            border: 1px solid rgba(46, 125, 50, 0.1); transition: 0.3s;
+        }
+        .feature-box i { font-size: 30px; color: var(--gold-color); margin-bottom: 10px; }
+        .feature-box h4 { font-size: 16px; color: var(--main-green); margin-bottom: 5px; }
+        .feature-box p { font-size: 12px; color: #666; }
+
+        /* 5. الخدمات (Services) */
         .services { padding: 60px 5%; background: #f4f7f4; }
         .card {
-            background: white; border: 1px solid rgba(46, 125, 50, 0.1); border-radius: 12px;
-            padding: 30px; margin-bottom: 25px; transition: 0.4s; text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.03); position: relative;
+            background: white; border: 1px solid rgba(46, 125, 50, 0.15); border-radius: 15px;
+            padding: 30px 20px; margin-bottom: 25px; transition: 0.3s; text-align: center;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.04); position: relative; overflow: hidden;
         }
-        .card:hover { transform: translateY(-5px); border-color: var(--light-green); }
-        .card i { font-size: 45px; color: var(--main-green); margin-bottom: 20px; }
-        .card h3 { color: var(--main-green); margin-bottom: 15px; font-size: 20px; }
-        .card p { font-size: 13.5px; line-height: 1.8; color: #555; text-align: justify; }
+        .card::before {
+            content: ''; position: absolute; top: 0; right: 0; width: 4px; height: 100%;
+            background: var(--main-green); transition: 0.3s;
+        }
+        .card:active { transform: scale(0.98); border-color: var(--main-green); }
+        .card i { font-size: 40px; color: var(--main-green); margin-bottom: 15px; }
+        .card h3 { color: var(--main-green); margin-bottom: 12px; font-size: 20px; font-weight: 700; }
+        .card p { font-size: 13.5px; line-height: 1.9; color: #555; text-align: justify; }
 
-        /* 5. بار التنقل السفلي */
+        /* 6. التواصل والفوتر */
+        .contact-sec { padding: 50px 5%; background: var(--main-green); color: white; text-align: center; }
+        .contact-sec p { margin-bottom: 15px; font-size: 16px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        
+        footer { background: #fff; padding: 30px 5% 100px; text-align: center; border-top: 1px solid #eee; }
+        
+        /* واتساب عائم */
+        .floating-wa {
+            position: fixed; bottom: 85px; left: 20px; width: 52px; height: 52px;
+            background: #25d366; color: white; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-size: 30px;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4); z-index: 998;
+            animation: float 3s ease-in-out infinite; text-decoration: none;
+        }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-8px); } }
+
+        /* 7. بار التنقل السفلي */
         .bottom-nav {
             position: fixed; bottom: 15px; left: 5%; width: 90%; background: white;
-            display: flex; justify-content: space-around; padding: 12px;
-            border-radius: 50px; border: 1px solid rgba(46, 125, 50, 0.2); z-index: 1000;
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            display: flex; justify-content: space-around; padding: 10px;
+            border-radius: 50px; border: 1px solid rgba(46, 125, 50, 0.2); z-index: 999;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
         }
-        .nav-item { color: var(--main-green); font-size: 22px; transition: 0.3s; }
-        .nav-item:active { transform: scale(0.8); }
-
-        /* 6. واتساب عائم */
-        .floating-wa {
-            position: fixed; bottom: 85px; left: 20px; width: 50px; height: 50px;
-            background: #25d366; color: white; border-radius: 50%; display: flex;
-            align-items: center; justify-content: center; font-size: 28px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1001;
-            animation: float 3s ease-in-out infinite;
-        }
-        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10deg); } }
-
-        footer { background: #fff; padding: 40px 5% 100px; text-align: center; border-top: 1px solid #eee; }
+        .nav-item { color: var(--main-green); font-size: 22px; transition: 0.3s; padding: 5px 15px; border-radius: 20px; text-decoration: none; }
+        .nav-item:active { background: rgba(46, 125, 50, 0.1); transform: scale(0.9); }
     </style>
 </head>
 <body>
 
     <div id="loader">
-        <div class="loader-circle"><i class="fas fa-seedling tree-icon"></i></div>
+        <div class="loader-wrapper">
+            <div class="loader-circle"></div>
+            <i class="fas fa-seedling tree-icon"></i>
+        </div>
         <div class="loader-text">أبو هيبة لتنسيق الحدائق</div>
-        <div style="color: rgba(255,255,255,0.7); font-size: 13px; margin-top: 10px;">جاري تحميل الموقع...</div>
+        <div class="loader-subtext">جاري تحميل الموقع...</div>
         <a href="https://wa.me/966547194788" class="designer-tag-loader">
             <i class="fas fa-crown"></i> تم التصميم بواسطة المهندس | إسلام الشيخ <i class="fas fa-crown"></i>
         </a>
@@ -111,48 +163,89 @@
             <i class="fas fa-tree"></i>
             <span>أبو هيبة لتنسيق الحدائق</span>
         </div>
-        <div class="nav-toggle" onclick="alert('خدماتنا متوفرة 24/7 بالرياض')"><i class="fas fa-bars"></i></div>
+        <div class="nav-toggle" onclick="toggleMenu()"><i class="fas fa-bars"></i></div>
     </header>
+
+    <div class="overlay" onclick="toggleMenu()"></div>
+    <div class="mobile-menu" id="mobileMenu">
+        <i class="fas fa-times close-menu" onclick="toggleMenu()"></i>
+        <a href="#home" onclick="toggleMenu()"><i class="fas fa-home"></i> الرئيسية</a>
+        <a href="#why-us" onclick="toggleMenu()"><i class="fas fa-star"></i> لماذا نحن</a>
+        <a href="#services" onclick="toggleMenu()"><i class="fas fa-th-large"></i> خدماتنا</a>
+        <a href="#contact" onclick="toggleMenu()"><i class="fas fa-phone-alt"></i> تواصل معنا</a>
+    </div>
 
     <section class="hero" id="home">
         <h1>أبو هيبة لتنسيق الحدائق</h1>
         <p>متخصصون في توريد وتصميم وتنسيق الحدائق، تركيب عشب صناعي وطبيعي، تكسيات جدارية، وشبكات ري أتوماتيك. نتميز بزراعة النباتات الخارجية والداخلية وخلع وغرس النخيل بأفضل الأسعار وبأيدي خبراء محترفين.</p>
     </section>
 
+    <section class="why-us" id="why-us">
+        <h2 class="section-title">لماذا نحن؟</h2>
+        <div class="features-grid">
+            <div class="feature-box">
+                <i class="fas fa-medal"></i>
+                <h4>خبرة واحترافية</h4>
+                <p>فريق هندسي وفني متخصص ذو خبرة طويلة.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-shield-alt"></i>
+                <h4>جودة وضمان</h4>
+                <p>نستخدم أفضل الخامات المعتمدة مع ضمان حقيقي.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-hand-holding-usd"></i>
+                <h4>أسعار تنافسية</h4>
+                <p>نقدم أفضل قيمة وأرخص سعر في مدينة الرياض.</p>
+            </div>
+            <div class="feature-box">
+                <i class="fas fa-clock"></i>
+                <h4>دقة المواعيد</h4>
+                <p>التزام تام بسرعة التنفيذ والتسليم في الوقت المحدد.</p>
+            </div>
+        </div>
+    </section>
+
     <section class="services" id="services">
-        <h2 style="text-align: center; margin-bottom: 40px; color: var(--main-green);">خدماتنا الاحترافية</h2>
+        <h2 class="section-title">خدماتنا الاحترافية</h2>
         
         <div class="card">
             <i class="fas fa-leaf"></i>
-            <h3>تنسيق الحدائق المتكامل</h3>
-            <p>نعد في مؤسسة أبو هيبة الرواد في تنسيق الحدائق المنزلية والعامة بالرياض، حيث نقدم حلولاً تصميمية مبتكرة تمزج بين الفخامة والعملية. نقوم بدراسة المساحة وتوزيع الأشجار والزهور بأسلوب هندسي فريد يضمن استغلال كل زاوية، مع توفير أنواع نادرة من النباتات التي تتحمل مناخ المملكة، مما يجعل حديقتك ملاذاً هادئاً يعكس ذوقك الرفيع ويضيف قيمة عقارية ملموسة لمنزلك بلمسات إبداعية لا تضاهى.</p>
+            <h3>تنسيق حدائق متكامل</h3>
+            <p>نعد في مؤسسة أبو هيبة الرواد في تنسيق الحدائق المنزلية والعامة بالرياض. نقدم حلولاً تصميمية مبتكرة تمزج بين الفخامة والعملية، مع دراسة المساحة وتوزيع الأشجار والزهور بأسلوب هندسي فريد يضمن استغلال كل زاوية. نوفر أنواعاً نادرة من النباتات التي تتحمل مناخ المملكة، مما يجعل حديقتك ملاذاً هادئاً يعكس ذوقك الرفيع ويضيف قيمة عقارية ملموسة لمنزلك بلمسات إبداعية لا تضاهى.</p>
         </div>
 
         <div class="card">
             <i class="fas fa-border-all"></i>
-            <h3>تركيب العشب والشلالات</h3>
-            <p>نختص في تركيب العشب الصناعي والطبيعي (الثيل) بأعلى المواصفات العالمية التي تضمن ملمساً طبيعياً ولوناً ثابتاً لسنوات طويلة. كما نبدع في تصميم وتنفيذ الشلالات والنوافير المنزلية التي تحاكي الطبيعة الخلابة، مع تركيب أنظمة إضاءة ليلية ساحرة وتكسيات جدارية خشبية وحجرية تعطي واجهة منزلك هيبة وفخامة، كل ذلك يتم باستخدام أفضل الخامات المقاومة للعوامل الجوية لضمان ديمومة الجمال بأقل تكاليف الصيانة.</p>
+            <h3>تركيب تكسيات جدارية</h3>
+            <p>نتميز بتصميم وتركيب أرقى أنواع التكسيات الجدارية الخشبية والبديل الخشب والرخام التي تضفي لمسة عصرية وفخامة لا مثيل لها على واجهات المنازل والحدائق. نستخدم أفضل الخامات المقاومة للحرارة والرطوبة لضمان استدامتها لسنوات طويلة دون أن تفقد رونقها. فريقنا المتخصص يضمن لك تنفيذاً دقيقاً وسريعاً يحول الجدران العادية إلى تحف فنية متناسقة مع طبيعة الحديقة بشكل احترافي.</p>
         </div>
 
         <div class="card">
-            <i class="fas fa-faucet"></i>
-            <h3>شبكات ري حديثة وملاعب</h3>
-            <p>نقدم خدمة تصميم وتأسيس شبكات الري الأتوماتيكية والعادية باستخدام أحدث التقنيات الموفرة للمياه، مما يضمن وصول التغذية المناسبة لكل نبتة في الوقت المحدد. كما نتميز في تجهيز الملاعب الرياضية وزراعة النخيل بأنواعه وخلعه ونقله بدقة عالية، مع توفير كافة خدمات التكسيات الجدارية التي تضفي لمسة عصرية. نحن نلتزم بتقديم أرخص الأسعار في الرياض مع الحفاظ على أعلى معايير الجودة والاحترافية التي تليق بعملاء أبو هيبة.</p>
+            <i class="fas fa-seedling"></i>
+            <h3>عشب صناعي وجداري</h3>
+            <p>نقدم خدمات توريد وتركيب العشب الصناعي والجداري بأعلى المواصفات العالمية التي تضمن ملمساً طبيعياً ولوناً أخضر زاهياً لا يتأثر بأشعة الشمس الحارقة أو التغيرات المناخية. نوفر تشكيلات متنوعة من العشب الجداري الذي يضيف حيوية للمساحات الضيقة والأسوار. تضمن لك شركتنا تركيباً هندسياً دقيقاً يخفي العيوب ويعطي مظهراً جذاباً بتكلفة اقتصادية، لتستمتع ببيئة خضراء نظيفة وآمنة.</p>
+        </div>
+
+        <div class="card">
+            <i class="fas fa-water"></i>
+            <h3>شلالات وملاعب وشبكات ري</h3>
+            <p>نصمم وننفذ أحدث الشلالات والنوافير المنزلية التي تحاكي الطبيعة مع أنظمة إضاءة ليلية ساحرة وتدوير مياه موفر. كما نختص بتجهيز الملاعب الرياضية بأفضل المعايير، وتأسيس شبكات الري الأتوماتيكية الذكية التي تضمن ري المزروعات بكفاءة عالية وبدون هدر للمياه. ندمج هذه العناصر معاً لنخلق بيئة ترفيهية متكاملة داخل منزلك، مع التزامنا التام بتقديم أعلى معايير الجودة.</p>
         </div>
     </section>
 
-    <section id="contact" style="padding: 50px 5%; background: var(--main-green); color: white; text-align: center;">
-        <h3 style="margin-bottom: 20px;">تواصل معنا الآن</h3>
-        <p style="margin-bottom: 10px;"><i class="fab fa-whatsapp"></i> 0565900420</p>
-        <p style="margin-bottom: 10px;"><i class="fas fa-envelope"></i> admin@abuhibagardendesign.com</p>
-        <p><i class="fas fa-map-marker-alt"></i> حي المصيف، الرياض، المملكة العربية السعودية</p>
+    <section id="contact" class="contact-sec">
+        <h3 style="margin-bottom: 25px; font-size: 24px;">تواصل معنا الآن</h3>
+        <p><i class="fab fa-whatsapp" style="font-size: 22px;"></i> 0565900420</p>
+        <p><i class="fas fa-envelope" style="font-size: 20px;"></i> admin@abuhibagardendesign.com</p>
+        <p><i class="fas fa-map-marker-alt" style="font-size: 20px;"></i> حي المصيف، الرياض، السعودية</p>
     </section>
 
     <footer>
-        <a href="https://wa.me/966547194788" class="designer-tag-loader" style="position: static; display: inline-block; background: var(--main-green); margin-bottom: 25px;">
+        <a href="https://wa.me/966547194788" class="designer-tag-loader" style="position: static; display: inline-block; background: var(--main-green); margin-bottom: 20px; padding: 8px 15px;">
             <i class="fas fa-crown"></i> تم التصميم بواسطة المهندس | إسلام الشيخ <i class="fas fa-crown"></i>
         </a>
-        <p style="font-size: 13px; color: #777;">جميع الحقوق محفوظة لدى | أبو هيبة لتنسيق الحدائق &copy; 2027</p>
+        <p style="font-size: 13px; color: #777; font-weight: 600;">جميع الحقوق محفوظة لدى | أبو هيبة لتنسيق الحدائق &copy; 2027</p>
     </footer>
 
     <a href="https://wa.me/966565900420" class="floating-wa"><i class="fab fa-whatsapp"></i></a>
@@ -160,20 +253,28 @@
     <div class="bottom-nav">
         <a href="#home" class="nav-item"><i class="fas fa-home"></i></a>
         <a href="#services" class="nav-item"><i class="fas fa-th-large"></i></a>
-        <a href="#contact" class="nav-item"><i class="fas fa-id-card"></i></a>
-        <a href="tel:0565900420" class="nav-item"><i class="fas fa-phone-alt"></i></a>
+        <a href="#why-us" class="nav-item"><i class="fas fa-star"></i></a>
+        <a href="#contact" class="nav-item"><i class="fas fa-phone-alt"></i></a>
     </div>
 
     <script>
+        // إخفاء صفحة التحميل
         setTimeout(() => {
             document.getElementById('loader').style.opacity = '0';
             setTimeout(() => { document.getElementById('loader').style.display = 'none'; }, 500);
         }, 3000);
 
+        // تأثير نزول الرأس
         window.onscroll = function() {
             if (window.scrollY > 50) { document.getElementById('header').classList.add('scrolled'); }
             else { document.getElementById('header').classList.remove('scrolled'); }
         };
+
+        // فتح وإغلاق القائمة الجانبية
+        function toggleMenu() {
+            document.getElementById('mobileMenu').classList.toggle('active');
+            document.querySelector('.overlay').classList.toggle('active');
+        }
     </script>
 </body>
 </html>
